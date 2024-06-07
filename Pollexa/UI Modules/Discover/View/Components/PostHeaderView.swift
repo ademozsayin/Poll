@@ -11,17 +11,18 @@ import ColorPalette
 
 final class PostHeaderView: UIView {
 
+    // MARK: - IBOutlets
     @IBOutlet private weak var containerView: UIView!
     @IBOutlet private weak var activePollsLabel: UILabel!
     @IBOutlet private weak var seeDetailsLabel: UILabel!
     
+    // MARK: - Init
     override func awakeFromNib() {
         super.awakeFromNib()
         configureContainerView()
         configureStyle()
     }
 }
-
 
 // MARK: - Public Methods
 //
@@ -38,7 +39,6 @@ extension PostHeaderView {
         }
     }
 }
-
 
 // MARK: - Private Methods
 //

@@ -15,19 +15,16 @@ class DiscoverViewController: UIViewController, GhostableViewController {
     /// The view model that provides data for the view controller.
     private let viewModel: PostViewModel
     
-    /// A set of AnyCancellable instances to store Combine subscriptions.
-    private var cancellables = Set<AnyCancellable>()
-    
     /// The table view displaying the posts.
     @IBOutlet private weak var tableView: UITableView!{
         didSet {
-            tableView.tableHeaderView = accountHeaderView
+            tableView.tableHeaderView = postHeaderView
         }
     }
     
-    /// Header View: Displays all of the Account Details
+    /// Header View: Displays post header view
     ///
-    private let accountHeaderView: PostHeaderView = {
+    private let postHeaderView: PostHeaderView = {
         PostHeaderView.instantiateFromNib()
     }()
     
@@ -81,8 +78,6 @@ class DiscoverViewController: UIViewController, GhostableViewController {
         setupNavigationBar()
         configureTableView()
         configureViewModel()
-       
-
     }
    
     override func viewDidLayoutSubviews() {
@@ -124,8 +119,13 @@ private extension DiscoverViewController {
         let leftBarButtonItem = UIBarButtonItem(customView: avatarImageView)
         
         // Create the right bar button item with a plus icon
-        let plusIcon = UIImage(systemName: "plus") // Use a system icon or your own icon
-        let rightBarButtonItem = UIBarButtonItem(image: plusIcon, style: .plain, target: self, action: #selector(plusButtonTapped))
+        let plusIcon = UIImage(systemName: "plus")
+        let rightBarButtonItem = UIBarButtonItem(
+            image: plusIcon,
+            style: .plain,
+            target: self,
+            action: #selector(plusButtonTapped)
+        )
         
         // Set the left and right bar button items to the navigation bar
         navigationItem.leftBarButtonItem = leftBarButtonItem
@@ -153,7 +153,7 @@ private extension DiscoverViewController {
     // Creates and returns a diffable data source for the table view.
     ///
     /// - Returns: A configured diffable data source.
-    func makeDataSource() -> UITableViewDiffableDataSource<Section, PostViewModel.CellViewModel> {
+    final func makeDataSource() -> UITableViewDiffableDataSource<Section, PostViewModel.CellViewModel> {
         let reuseIdentifier = PostTableViewCell.reuseIdentifier
         return UITableViewDiffableDataSource(
             tableView: tableView,
@@ -171,27 +171,31 @@ private extension DiscoverViewController {
 }
  
 // MARK: - VoteViewDelegate
-
 extension DiscoverViewController: VoteViewDelegate {
-    final func didUserVote(at option: Post.Option, indexPath: IndexPath ) {
+    /// Notifies the view controller that the user has voted for an option.
+    ///
+    /// - Parameters:
+    ///   - option: The option that the user voted for.
+    ///   - indexPath: The index path of the post in the table view.
+    final func didUserVote(at option: Post.Option, indexPath: IndexPath) {
         viewModel.vote(at: option, indexPath: indexPath)
     }
 }
 
+// MARK: - Privates
 private extension DiscoverViewController {
-    /// Configures the view model bindings.
-
+    /// Configures the view model bindings and updates based on state changes.
     final func configureViewModel() {
         viewModel.$state
             .removeDuplicates()
             .sink { [weak self] state in
-                guard let self = self else { return }
+                guard let self else { return }
                 self.resetViews()
                 switch state {
                     case .empty:
                         self.displayNoResultsOverlay()
                     case .loading:
-                        self.displayPlaceholderCoupons()
+                        self.removePlaceholderPosts()
                     case .posts:
                         break
                     case .refreshing:
@@ -204,11 +208,12 @@ private extension DiscoverViewController {
             }
             .store(in: &subscriptions)
         
+        /// Bindings for viewModel's postsViewModels
         viewModel.$postsViewModels
             .receive(on: DispatchQueue.main)
             .sink { [weak self] posts in
                 guard let self  else { return }
-                self.accountHeaderView.pollsCount = "\(posts.count) Active Polls"
+                self.postHeaderView.pollsCount = "\(posts.count) Active Polls"
                 self.applySnapshot(posts: posts)
             }
             .store(in: &subscriptions)
@@ -232,19 +237,19 @@ extension DiscoverViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 78
+        return Constants.tableViewHeaderHeight
     }
 }
 // MARK: - Placeholder cells
 extension DiscoverViewController {
     /// Renders the Placeholder Coupons
-    func displayPlaceholderCoupons() {
+    final func removePlaceholderPosts() {
         displayGhostContent()
     }
     
     /// Removes the Placeholder Coupons
     ///
-    func removePlaceholderCoupons() {
+    final func removePlaceholderCoupons() {
         removeGhostContent()
     }
 }
@@ -253,9 +258,9 @@ extension DiscoverViewController {
 private extension DiscoverViewController {
     /// Removes overlays and loading indicators if present.
     ///
-    func resetViews() {
+    final func resetViews() {
         removeNoResultsOverlay()
-        removePlaceholderCoupons()
+        removePlaceholderPosts()
         if refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
@@ -263,7 +268,6 @@ private extension DiscoverViewController {
 }
 
 // MARK: - Empty state view controller
-//
 ///
 ///Since data is local and we know will not be empty
 ///no need to integrate empty screen
@@ -287,6 +291,7 @@ private extension DiscoverViewController {
     enum Constants {
         static let estimatedRowHeight = CGFloat(86)
         static let placeholderRowsPerSection = [3]
+        static let tableViewHeaderHeight: CGFloat = 78
     }
     
     enum Section: Int {

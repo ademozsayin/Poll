@@ -43,16 +43,54 @@ final class PostViewModel: ObservableObject {
             await fetchPosts()
         }
     }
+}
+
+// MARK: - Public Methods
+
+extension PostViewModel {
+    /// Votes for a specific option in a post and updates the view models.
+    ///
+    /// - Parameters:
+    ///   - option: The option to vote for.
+    ///   - indexPath: The index path of the post in the table view.
+    final func vote(at option: Post.Option, indexPath: IndexPath) {
+        guard let postIndex = postIndex(for: indexPath) else {
+            return
+        }
+        
+        updatePostData(at: postIndex, with: option)
+        buildPostViewModels()
+    }
+}
+
+// MARK: - Private Methods
+private extension PostViewModel {
     
-    // MARK: - Methods
+    /// Loads pages of posts asynchronously.
+    ///
+    /// - Returns: An array of `Post` objects.
+    /// - Throws: An error if the pages could not be loaded.
+    @MainActor
+    final func loadPosts() async throws -> [Post] {
+        try await withCheckedThrowingContinuation { continuation in
+            PostProvider.shared.fetchAll { result in
+                switch result {
+                    case .success(let pages):
+                        continuation.resume(returning: pages)
+                    case .failure(let error):
+                        continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
     
     /// Fetches posts asynchronously and updates the state and current user.
     @MainActor
-    func fetchPosts() async {
+    final func fetchPosts() async {
         do {
-            posts = try await loadPages()
+            posts = try await loadPosts()
             currentUser = posts.first?.user ?? nil
-            buildCouponViewModels()
+            buildPostViewModels()
         } catch {
             print("⛔️ Error loading pages: \(error)")
             state = .empty
@@ -60,7 +98,7 @@ final class PostViewModel: ObservableObject {
     }
     
     /// Builds view models for the posts and updates the state.
-    func buildCouponViewModels() {
+    final func buildPostViewModels() {
         postsViewModels = posts.map { post in
             CellViewModel(
                 id: post.id,
@@ -82,87 +120,42 @@ final class PostViewModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
             self.state = self.postsViewModels.isEmpty ? .empty : .posts
         }
-       
     }
     
-    /// Votes for a specific option in a post and updates the view models.
+    /// Retrieves the index of the post based on the index path.
+    ///
+    /// - Parameter indexPath: The index path of the post in the table view.
+    /// - Returns: The index of the post in the `posts` array, or `nil` if the index path is invalid.
+    final func postIndex(for indexPath: IndexPath) -> Int? {
+        guard indexPath.row < posts.count else {
+            return nil
+        }
+        return indexPath.row
+    }
+    
+    
+    // Updates the data for a post when a vote is cast.
     ///
     /// - Parameters:
-    ///   - option: The option to vote for.
-    ///   - indexPath: The index path of the post in the table view.
-    func vote(at option: Post.Option, indexPath: IndexPath) {
-        let postIndex = indexPath.row
-        let post = posts[postIndex]
+    ///   - index: The index of the post in the `posts` array.
+    ///   - option: The option that was voted for.
+    final func updatePostData(at index: Int, with option: Post.Option) {
+        var post = posts[index]
         guard let optionIndex = post.options.firstIndex(where: { $0.id == option.id }) else {
             return
         }
         
-        // Update the voted count
-        posts[postIndex].options[optionIndex].voted += 1
-        // Update the last voted date 
-        posts[postIndex].lastVoteAt = Date()
-
-        // Append the current user to the votedBys array
-        var updatedPost = posts[postIndex]
+        post.options[optionIndex].voted += 1
+        post.lastVoteAt = Date()
+        
         let votedBy = VotedBy(
             user: currentUser!,
-            postId: posts[postIndex].id,
+            postId: post.id,
             selectedOption: option
         )
-        updatedPost.votedBys.append(votedBy)
+        post.votedBys.append(votedBy)
         
-        // Replace the old post with the updated one
-        posts[postIndex] = updatedPost
-        
-        buildCouponViewModels()
-    }
-}
-
-// MARK: - Private Methods
-
-private extension PostViewModel {
-    
-    /// Loads pages of posts asynchronously.
-    ///
-    /// - Returns: An array of `Post` objects.
-    /// - Throws: An error if the pages could not be loaded.
-    @MainActor
-    func loadPages() async throws -> [Post] {
-        try await withCheckedThrowingContinuation { continuation in
-            PostProvider.shared.fetchAll { result in
-                switch result {
-                    case .success(let pages):
-                        continuation.resume(returning: pages)
-                    case .failure(let error):
-                        continuation.resume(throwing: error)
-                }
-            }
-        }
-    }
-}
-
-// MARK: - Pagination
-
-private extension PostViewModel {
-    
-    /// Transitions the state to syncing based on the page number and whether there is data.
-    ///
-    /// - Parameters:
-    ///   - pageNumber: The current page number.
-    ///   - hasData: A boolean indicating whether there is data.
-    func transitionToSyncingState(pageNumber: Int, hasData: Bool) {
-        if pageNumber == 1 {
-            state = hasData ? .refreshing : .loading
-        } else {
-            state = .loadingNextPage
-        }
-    }
-    
-    /// Transitions the state to updated results based on whether there is data.
-    ///
-    /// - Parameter hasData: A boolean indicating whether there is data.
-    func transitionToResultsUpdatedState(hasData: Bool) {
-        state = hasData ? .posts : .empty
+        posts[index] = post
     }
 }
 
