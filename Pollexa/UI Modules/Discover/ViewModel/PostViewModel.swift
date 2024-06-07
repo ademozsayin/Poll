@@ -162,14 +162,7 @@ private extension PostViewModel {
 // MARK: - State and Localization
 
 extension PostViewModel {
-    
-    /// The different states the post list can be in.
-    enum State: Equatable {
-        case pagesLoading
-        case pagesLoadingError
-        case pagesContent
-    }
-    
+
     /// Localized strings used in the view model.
     private enum Localization {
         static let pageTitle = NSLocalizedString(
