@@ -118,7 +118,7 @@ extension UIFont {
     }
     
     static var title2: UIFont {
-        return .preferredFont(forTextStyle: .title2)
+        return Font(.custom("Helvetica-Light"), size: .standard(.h4)).instance
     }
     
     static var title2SemiBold: UIFont {
@@ -134,7 +134,7 @@ extension UIFont {
     }
     
     static var headline: UIFont {
-        return .preferredFont(forTextStyle: .headline)
+        Font(.installed(.SFPROMedium), size: .standard(.h1)).instance
     }
     
     static var subheadline: UIFont {

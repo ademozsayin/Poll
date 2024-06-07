@@ -19,7 +19,17 @@ class DiscoverViewController: UIViewController, GhostableViewController {
     private var cancellables = Set<AnyCancellable>()
     
     /// The table view displaying the posts.
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!{
+        didSet {
+            tableView.tableHeaderView = accountHeaderView
+        }
+    }
+    
+    /// Header View: Displays all of the Account Details
+    ///
+    private let accountHeaderView: PostHeaderView = {
+        PostHeaderView.instantiateFromNib()
+    }()
     
     /// An optional view controller displayed when the list is empty.
     private var emptyStateViewController: UIViewController?
@@ -71,6 +81,13 @@ class DiscoverViewController: UIViewController, GhostableViewController {
         setupNavigationBar()
         configureTableView()
         configureViewModel()
+       
+
+    }
+   
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.updateHeaderHeight()
     }
     
     /// Triggers a refresh for the post list.
@@ -126,6 +143,7 @@ private extension DiscoverViewController {
         tableView.delegate = self
         tableView.backgroundColor = .discoverBackground
         tableView.separatorStyle = .none
+        tableView.updateHeaderHeight()
     }
     
     final func registerTableViewCells() {
@@ -190,6 +208,7 @@ private extension DiscoverViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] posts in
                 guard let self  else { return }
+                self.accountHeaderView.pollsCount = "\(posts.count) Active Polls"
                 self.applySnapshot(posts: posts)
             }
             .store(in: &subscriptions)
@@ -210,6 +229,10 @@ private extension DiscoverViewController {
 extension DiscoverViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 78
     }
 }
 // MARK: - Placeholder cells

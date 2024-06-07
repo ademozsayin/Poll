@@ -36,6 +36,8 @@
 		B71F73AB2C132907002A596C /* NSDate+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F73AA2C132907002A596C /* NSDate+Helpers.swift */; };
 		B71F73AD2C132B2A002A596C /* String+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F73AC2C132B2A002A596C /* String+Helpers.swift */; };
 		B71F73AF2C133361002A596C /* VoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F73AE2C133361002A596C /* VoteView.swift */; };
+		B7D1CA752C13935A00A423A2 /* PostHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1CA742C13935A00A423A2 /* PostHeaderView.swift */; };
+		B7D1CA772C13937200A423A2 /* PostHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7D1CA762C13937200A423A2 /* PostHeaderView.xib */; };
 		B7EAB1F12C120EF60088DAA3 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EAB1F02C120EF60088DAA3 /* PostViewModel.swift */; };
 		B7EAB1F42C12130F0088DAA3 /* GhostableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EAB1F32C12130F0088DAA3 /* GhostableViewController.swift */; };
 		B7EAB1F72C1213420088DAA3 /* GhostTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EAB1F62C1213420088DAA3 /* GhostTableViewController.swift */; };
@@ -75,6 +77,8 @@
 		B71F73AA2C132907002A596C /* NSDate+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDate+Helpers.swift"; sourceTree = "<group>"; };
 		B71F73AC2C132B2A002A596C /* String+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Helpers.swift"; sourceTree = "<group>"; };
 		B71F73AE2C133361002A596C /* VoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteView.swift; sourceTree = "<group>"; };
+		B7D1CA742C13935A00A423A2 /* PostHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderView.swift; sourceTree = "<group>"; };
+		B7D1CA762C13937200A423A2 /* PostHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostHeaderView.xib; sourceTree = "<group>"; };
 		B7EAB1F02C120EF60088DAA3 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		B7EAB1F32C12130F0088DAA3 /* GhostableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostableViewController.swift; sourceTree = "<group>"; };
 		B7EAB1F62C1213420088DAA3 /* GhostTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostTableViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +252,8 @@
 			isa = PBXGroup;
 			children = (
 				B71F73AE2C133361002A596C /* VoteView.swift */,
+				B7D1CA742C13935A00A423A2 /* PostHeaderView.swift */,
+				B7D1CA762C13937200A423A2 /* PostHeaderView.xib */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -373,6 +379,7 @@
 				6E3A36212BF25FD900ECE78C /* posts.json in Resources */,
 				B71F739D2C12399A002A596C /* SFPRODISPLAYBOLD.OTF in Resources */,
 				6E3A36092BF2563400ECE78C /* Base in Resources */,
+				B7D1CA772C13937200A423A2 /* PostHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +405,7 @@
 				6E3A36042BF2563400ECE78C /* SceneDelegate.swift in Sources */,
 				B71F73852C121E1B002A596C /* GhostAnimation.swift in Sources */,
 				B71F73912C12383A002A596C /* UIFont+Helpers.swift in Sources */,
+				B7D1CA752C13935A00A423A2 /* PostHeaderView.swift in Sources */,
 				B71F737D2C121D25002A596C /* GhostStyle.swift in Sources */,
 				B7EAB1F42C12130F0088DAA3 /* GhostableViewController.swift in Sources */,
 				B71F73AB2C132907002A596C /* NSDate+Helpers.swift in Sources */,
