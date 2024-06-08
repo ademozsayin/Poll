@@ -50,7 +50,8 @@ class DiscoverViewController: UIViewController, GhostableViewController {
     
     /// A set of AnyCancellable instances to store Combine subscriptions.
     private var subscriptions: Set<AnyCancellable> = []
-    
+    private var cancellables = Set<AnyCancellable>()
+
     /// A diffable data source for managing the table view's data.
     private lazy var dataSource: UITableViewDiffableDataSource<Section, PostViewModel.CellViewModel> = makeDataSource()
     
@@ -135,6 +136,7 @@ private extension DiscoverViewController {
     @objc func plusButtonTapped() {}
     
     final func configureTableView() {
+        postHeaderView.isHidden = true
         registerTableViewCells()
         tableView.dataSource = dataSource
         tableView.estimatedRowHeight = Constants.estimatedRowHeight
@@ -195,7 +197,7 @@ private extension DiscoverViewController {
                     case .empty:
                         self.displayNoResultsOverlay()
                     case .loading:
-                        self.removePlaceholderPosts()
+                        self.displayPlaceholderPosts()
                     case .posts:
                         break
                     case .refreshing:
@@ -243,13 +245,11 @@ extension DiscoverViewController: UITableViewDelegate {
 // MARK: - Placeholder cells
 extension DiscoverViewController {
     /// Renders the Placeholder Coupons
-    final func removePlaceholderPosts() {
+    final func displayPlaceholderPosts() {
         displayGhostContent()
     }
     
-    /// Removes the Placeholder Coupons
-    ///
-    final func removePlaceholderCoupons() {
+    final func removePlaceholderPosts() {
         removeGhostContent()
     }
 }
@@ -264,6 +264,7 @@ private extension DiscoverViewController {
         if refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
+        postHeaderView.isHidden = (viewModel.state == .posts) ? true : false
     }
 }
 

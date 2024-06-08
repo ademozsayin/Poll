@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-enum PostListState {
+enum PostListState: Equatable {
     case initialized
     case loading // View should show ghost cells
     case empty // View should display the empty state
