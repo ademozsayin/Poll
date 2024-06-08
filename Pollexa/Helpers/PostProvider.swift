@@ -7,11 +7,25 @@
 
 import Foundation
 
-class PostProvider {
-    
+public protocol PostProviderType: PostProviderProtocol {
+    static var shared: PostProviderType { get set }
+}
+
+public protocol PostProviderProtocol {
+    func fetchAll(completion: @escaping (Result<[Post], Error>) -> Void)
+}
+
+class PostProvider: PostProviderProtocol, PostProviderType {
     // MARK: - Properties
-    static let shared = PostProvider(fileName: "posts")
+    static var shared: PostProviderType = PostProvider(fileName: "posts")
     private let filename: String
+    
+    private(set) static var testShared: PostProviderType?
+    
+    static func setShared(_ provider: PostProviderType) {
+        testShared = provider
+    }
+
     
     private let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -21,7 +35,7 @@ class PostProvider {
         
         return decoder
     }()
-    
+        
     // MARK: - Life Cycle
     private init(fileName: String) {
         self.filename = fileName

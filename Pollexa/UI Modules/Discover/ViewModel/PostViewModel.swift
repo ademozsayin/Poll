@@ -17,8 +17,14 @@ enum PostListState: Equatable {
     case loadingNextPage
 }
 
+public protocol PostViewModelProtocol {
+    func fetchPosts() async
+    var posts: [Post] { get set }
+}
+
+
 /// A view model for managing and displaying a list of posts.
-final class PostViewModel: ObservableObject {
+final class PostViewModel: ObservableObject, PostViewModelProtocol {
     
     /// The type used for cell view models.
     typealias CellViewModel = PostTableViewCell.ViewModel
@@ -27,18 +33,21 @@ final class PostViewModel: ObservableObject {
     @Published private(set) var postsViewModels: [CellViewModel] = []
     
     /// The currently logged-in user.
-    @Published private(set) var currentUser: User?
+    var currentUser: User?
     
     /// An array of `Post` objects.
-    private(set) var posts: [Post] = [] 
+    var posts: [Post] = [] 
     /// The current state of the post list.
     @Published private(set) var state: PostListState = .loading
     
     /// The title of the page.
     @Published private(set) var pageTitle: String = Localization.pageTitle
     
+    private let postProvider: PostProviderProtocol
+
     /// Initializes the view model and begins fetching posts.
-    init()  {
+    init(postProvider: PostProviderProtocol = PostProvider.shared) {
+        self.postProvider = postProvider
         Task {
             await fetchPosts()
         }
@@ -64,7 +73,7 @@ extension PostViewModel {
 }
 
 // MARK: - Private Methods
-private extension PostViewModel {
+extension PostViewModel {
     
     /// Loads pages of posts asynchronously.
     ///
@@ -86,7 +95,7 @@ private extension PostViewModel {
     
     /// Fetches posts asynchronously and updates the state and current user.
     @MainActor
-    final func fetchPosts() async {
+    internal final func fetchPosts() async {
         do {
             posts = try await loadPosts()
             currentUser = posts.first?.user ?? nil

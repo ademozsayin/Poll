@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Post: Decodable {
+public struct Post: Decodable {
     
     // MARK: - Properties
     let id: String
@@ -17,10 +17,26 @@ struct Post: Decodable {
     let user: User?
     var lastVoteAt: Date?
     var votedBys: [VotedBy]
+    
+    public init(id: String, createdAt: Date, content: String, options: [Option], user: User?, lastVoteAt: Date? = nil, votedBys: [VotedBy]) {
+        self.id = id
+        self.createdAt = createdAt
+        self.content = content
+        self.options = options
+        self.user = user
+        self.lastVoteAt = lastVoteAt
+        self.votedBys = votedBys
+    }
 }
 
-struct VotedBy: Decodable, Hashable {
+public struct VotedBy: Decodable, Hashable {
     var user: User
     var postId: String?
     var selectedOption: Post.Option
+    
+    init(user: User, postId: String? = nil, selectedOption: Post.Option) {
+        self.user = user
+        self.postId = postId
+        self.selectedOption = selectedOption
+    }
 }

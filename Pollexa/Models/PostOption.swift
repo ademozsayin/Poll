@@ -9,7 +9,7 @@ import UIKit
 
 extension Post {
     
-    struct Option: Decodable, Hashable {
+    public struct Option: Decodable, Hashable {
         
         // MARK: - Types
         enum CodingKeys: String, CodingKey {
@@ -19,12 +19,13 @@ extension Post {
         }
         
         // MARK: - Properties
-        let id: String
-        let image: UIImage
-        var voted: Int
+        public let id: String
+        public let image: UIImage
+        public var voted: Int
+        
         
         // MARK: - Life Cycle
-        init(from decoder: any Decoder) throws {
+        public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
             id = try container.decode(String.self, forKey: .id)
@@ -43,5 +44,14 @@ extension Post {
                 )
             }
         }
-    }
+        
+        // MARK: - Life Cycle
+        public init(id: String, image: UIImage, voted: Int) {
+            self.id = id
+            self.image = image
+            self.voted = voted
+        }
+
+    }    
 }
+

@@ -38,12 +38,25 @@
 		B71F73AF2C133361002A596C /* VoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F73AE2C133361002A596C /* VoteView.swift */; };
 		B7D1CA752C13935A00A423A2 /* PostHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1CA742C13935A00A423A2 /* PostHeaderView.swift */; };
 		B7D1CA772C13937200A423A2 /* PostHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7D1CA762C13937200A423A2 /* PostHeaderView.xib */; };
+		B7D1CA7F2C14E75300A423A2 /* PollexaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1CA7E2C14E75300A423A2 /* PollexaTests.swift */; };
+		B7D1CA862C14E76700A423A2 /* PostViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1CA852C14E76700A423A2 /* PostViewModelTests.swift */; };
+		B7D1CA882C14E78400A423A2 /* MockPostProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1CA872C14E78400A423A2 /* MockPostProvider.swift */; };
 		B7EAB1F12C120EF60088DAA3 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EAB1F02C120EF60088DAA3 /* PostViewModel.swift */; };
 		B7EAB1F42C12130F0088DAA3 /* GhostableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EAB1F32C12130F0088DAA3 /* GhostableViewController.swift */; };
 		B7EAB1F72C1213420088DAA3 /* GhostTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EAB1F62C1213420088DAA3 /* GhostTableViewController.swift */; };
 		B7EAB1F92C1213A20088DAA3 /* GhostOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EAB1F82C1213A20088DAA3 /* GhostOptions.swift */; };
 		B7EAB2002C1215FC0088DAA3 /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EAB1FF2C1215FC0088DAA3 /* UIView+Helpers.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B7D1CA802C14E75300A423A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6E3A35F62BF2563400ECE78C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6E3A35FD2BF2563400ECE78C;
+			remoteInfo = Pollexa;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6E3A35FE2BF2563400ECE78C /* Pollexa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pollexa.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +92,10 @@
 		B71F73AE2C133361002A596C /* VoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteView.swift; sourceTree = "<group>"; };
 		B7D1CA742C13935A00A423A2 /* PostHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderView.swift; sourceTree = "<group>"; };
 		B7D1CA762C13937200A423A2 /* PostHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostHeaderView.xib; sourceTree = "<group>"; };
+		B7D1CA7C2C14E75300A423A2 /* PollexaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PollexaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7D1CA7E2C14E75300A423A2 /* PollexaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollexaTests.swift; sourceTree = "<group>"; };
+		B7D1CA852C14E76700A423A2 /* PostViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModelTests.swift; sourceTree = "<group>"; };
+		B7D1CA872C14E78400A423A2 /* MockPostProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPostProvider.swift; sourceTree = "<group>"; };
 		B7EAB1F02C120EF60088DAA3 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		B7EAB1F32C12130F0088DAA3 /* GhostableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostableViewController.swift; sourceTree = "<group>"; };
 		B7EAB1F62C1213420088DAA3 /* GhostTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostTableViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +112,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B7D1CA792C14E75300A423A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -102,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				6E3A36002BF2563400ECE78C /* Pollexa */,
+				B7D1CA7D2C14E75300A423A2 /* PollexaTests */,
 				6E3A35FF2BF2563400ECE78C /* Products */,
 				B7EAB1FB2C1215560088DAA3 /* Frameworks */,
 			);
@@ -111,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				6E3A35FE2BF2563400ECE78C /* Pollexa.app */,
+				B7D1CA7C2C14E75300A423A2 /* PollexaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -266,6 +292,16 @@
 			path = Scene;
 			sourceTree = "<group>";
 		};
+		B7D1CA7D2C14E75300A423A2 /* PollexaTests */ = {
+			isa = PBXGroup;
+			children = (
+				B7D1CA7E2C14E75300A423A2 /* PollexaTests.swift */,
+				B7D1CA852C14E76700A423A2 /* PostViewModelTests.swift */,
+				B7D1CA872C14E78400A423A2 /* MockPostProvider.swift */,
+			);
+			path = PollexaTests;
+			sourceTree = "<group>";
+		};
 		B7EAB1F22C1213070088DAA3 /* ResusableViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +369,24 @@
 			productReference = 6E3A35FE2BF2563400ECE78C /* Pollexa.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B7D1CA7B2C14E75300A423A2 /* PollexaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B7D1CA842C14E75300A423A2 /* Build configuration list for PBXNativeTarget "PollexaTests" */;
+			buildPhases = (
+				B7D1CA782C14E75300A423A2 /* Sources */,
+				B7D1CA792C14E75300A423A2 /* Frameworks */,
+				B7D1CA7A2C14E75300A423A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B7D1CA812C14E75300A423A2 /* PBXTargetDependency */,
+			);
+			name = PollexaTests;
+			productName = PollexaTests;
+			productReference = B7D1CA7C2C14E75300A423A2 /* PollexaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -340,11 +394,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1530;
+				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					6E3A35FD2BF2563400ECE78C = {
 						CreatedOnToolsVersion = 15.3;
+					};
+					B7D1CA7B2C14E75300A423A2 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 6E3A35FD2BF2563400ECE78C;
 					};
 				};
 			};
@@ -362,6 +420,7 @@
 			projectRoot = "";
 			targets = (
 				6E3A35FD2BF2563400ECE78C /* Pollexa */,
+				B7D1CA7B2C14E75300A423A2 /* PollexaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -380,6 +439,13 @@
 				B71F739D2C12399A002A596C /* SFPRODISPLAYBOLD.OTF in Resources */,
 				6E3A36092BF2563400ECE78C /* Base in Resources */,
 				B7D1CA772C13937200A423A2 /* PostHeaderView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7D1CA7A2C14E75300A423A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,7 +485,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B7D1CA782C14E75300A423A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B7D1CA862C14E76700A423A2 /* PostViewModelTests.swift in Sources */,
+				B7D1CA7F2C14E75300A423A2 /* PollexaTests.swift in Sources */,
+				B7D1CA882C14E78400A423A2 /* MockPostProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B7D1CA812C14E75300A423A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6E3A35FD2BF2563400ECE78C /* Pollexa */;
+			targetProxy = B7D1CA802C14E75300A423A2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6E3A36072BF2563400ECE78C /* Main.storyboard */ = {
@@ -624,6 +708,44 @@
 			};
 			name = Release;
 		};
+		B7D1CA822C14E75300A423A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7PX72NXP7V;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = agency.fiable.PollexaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pollexa.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pollexa";
+			};
+			name = Debug;
+		};
+		B7D1CA832C14E75300A423A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7PX72NXP7V;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = agency.fiable.PollexaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pollexa.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pollexa";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -641,6 +763,15 @@
 			buildConfigurations = (
 				6E3A36132BF2563500ECE78C /* Debug */,
 				6E3A36142BF2563500ECE78C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B7D1CA842C14E75300A423A2 /* Build configuration list for PBXNativeTarget "PollexaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B7D1CA822C14E75300A423A2 /* Debug */,
+				B7D1CA832C14E75300A423A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -50,7 +50,6 @@ class DiscoverViewController: UIViewController, GhostableViewController {
     
     /// A set of AnyCancellable instances to store Combine subscriptions.
     private var subscriptions: Set<AnyCancellable> = []
-    private var cancellables = Set<AnyCancellable>()
 
     /// A diffable data source for managing the table view's data.
     private lazy var dataSource: UITableViewDiffableDataSource<Section, PostViewModel.CellViewModel> = makeDataSource()
